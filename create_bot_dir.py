@@ -19,62 +19,33 @@ matrix-nio store and a credentials file. It also supports a mechanism
 to verify the device of the other party by accepting the emoji verification.
 The created nio bot dir can be used as login credentials for a matrix bot.
 
-# Objectives:
-- Showcase the emoji verification using matrix-nio SDK
-- This sample program tries to show the key steps involved in performing
-    an emoji verification.
-- It does so only for incoming request, outgoing emoji verification request
-    are similar but not shown in this sample program
+To use this script the matrix-nio components for end to end encryption
+must be installed (see https://github.com/matrix-nio/matrix-nio).
+You must have created a Matrix account (for example on https://app.element.io/)
+and have the username and password ready. You have to be logged in to your
+account with an matrix client like Element (https://element.io/) or the browser
+version of Element (https://app.element.io/).
 
-# Prerequisites:
-- You must have matrix-nio and components for end-to-end encryption installed
-    See: https://github.com/poljar/matrix-nio
-- You must have created a Matrix account already,
-    and have username and password ready
-- You must have already joined a Matrix room with someone, e.g. yourself
-- This other party initiates an emoji verification with you
-- You are using this sample program to accept this incoming emoji verification
-    and follow the protocol to successfully verify the other party's device
+Start the script and follow the instructions. The script will ask for the
+device name of the bot. Choose a alphanumeric (can include _) name for the device
+that is used to recognize the login credentials that you are going to create.
+The created botdir will be called botdir_<device_name> and will be created in
+the same directory as the script. The program will ask for the homeserver URL,
+the user ID and the password of the account. Use the same credentials that you
+use to log in to your account with the matrix client.
 
-# Use Cases:
-- Apply similar code in your Matrix bot
-- Apply similar code in your Matrix client
-- Just to learn about Matrix and the matrix-nio SDK
+After the login was successful the program will wait for the other party to
+initiate an emoji verification with the bot to verify the cryptographic keys
+of the botdir. You now have to initiate the emoji verification with the bot
+from the other client. In Element you can do this by selecting settings ->
+all settings -> sessions -> selecting the session that can be identified by
+the device name and then selecting "Verify". 
 
-# Running the Program:
-- Change permissions to allow execution
-    `chmod 755 ./verify_with_emoji.py`
-- Optionally create a store directory, if not it will be done for you
-    `mkdir ./store/`
-- Run the program as-is, no changes needed
-    `./verify_with_emoji.py`
-- Run it as often as you like
-
-# Sample Screen Output when Running Program:
-$ ./verify_with_emoji.py
-First time use. Did not find credential file. Asking for
-homeserver, user, and password to create credential file.
-Enter your homeserver URL: [https://matrix.example.org] matrix.example.org
-Enter your full user ID: [@user:example.org] @user:example.org
-Choose a name for this device: [matrix-nio] verify_with_emoji
-Password:
-Logged in using a password. Credentials were stored.
-On next execution the stored login credentials will be used.
-This program is ready and waiting for the other party to initiate an emoji
-verification with us by selecting "Verify by Emoji" in their Matrix client.
-[('⚓', 'Anchor'), ('☎️', 'Telephone'), ('😀', 'Smiley'), ('😀', 'Smiley'),
- ('☂️', 'Umbrella'), ('⚓', 'Anchor'), ('☎️', 'Telephone')]
-Do the emojis match? (Y/N) y
-Match! Device will be verified by accepting verification.
-sas.we_started_it = False
-sas.sas_accepted = True
-sas.canceled = False
-sas.timed_out = False
-sas.verified = True
-sas.verified_devices = ['DEVICEIDXY']
-Emoji verification was successful.
-Hit Control-C to stop the program or initiate another Emoji verification
-from another device or room.
+You will be asked to compare the emojis that are displayed on the bot and the 
+other client. If the emojis match you can confirm the verification. Make sure
+that you first confirm the verification on the other client before you confirm
+the verification on the bot. After the verification was successful you can use
+the botdir as login credentials for a matrix bot.
 
 """
 
